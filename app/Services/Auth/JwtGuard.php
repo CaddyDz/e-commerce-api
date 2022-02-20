@@ -88,6 +88,7 @@ class JwtGuard implements Guard
         // Check token is not restricted (blacklisted)
         if (
             Token::where('unique_id', $token->claims()->get('jti'))
+                ->where('token_title', $this->request->userAgent())
                 ->where('restrictions', 1)
                 ->exists()
         ) {
