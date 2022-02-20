@@ -51,7 +51,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use HasFactory, HasToken, Notifiable;
+    use HasFactory;
+    use HasToken;
+    use Notifiable;
 
     /**
      * The primary key for the model.

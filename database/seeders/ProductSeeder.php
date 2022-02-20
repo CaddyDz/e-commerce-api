@@ -16,7 +16,8 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Category::select('uuid')->get()->each(fn ($category) =>
+        Category::select('uuid')->get()->each(
+            fn ($category) =>
             $category->products()->create(Product::factory()->make([
                 'metadata' => json_encode([
                     'brand' => Brand::inRandomOrder()->value('uuid'),
