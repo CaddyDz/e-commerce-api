@@ -64,4 +64,16 @@ class User extends Authenticatable
         'is_marketing' => 'boolean',
         'last_login_at' => 'datetime',
     ];
+
+    /**
+     * Scope a query to only include admin users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return void
+     */
+    public function scopeAdmin($query): void
+    {
+        $query->where('is_admin', 1);
+    }
 }
