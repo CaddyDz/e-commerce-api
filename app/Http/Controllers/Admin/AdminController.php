@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateAdminRequest;
 use Illuminate\Auth\AuthenticationException;
 use App\Http\Requests\Admin\AdminLoginRequest;
@@ -77,6 +79,22 @@ class AdminController extends Controller
             'error' => 'Failed to authenticate user',
             'errors' => [],
             'trace' => [],
+        ]);
+    }
+
+    /**
+     * Logout
+     *
+     * Blacklist the current token
+     *
+     * @return \Illuminate\Http\Response
+     **/
+    public function logout()
+    {
+        Auth::logout();
+
+        return response([
+            'message' => 'Logged out',
         ]);
     }
 }

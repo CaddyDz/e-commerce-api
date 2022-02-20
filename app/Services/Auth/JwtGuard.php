@@ -99,4 +99,25 @@ class JwtGuard implements Guard
         // Stop at the very first violation as oppose to assert
         return $this->configuration->validator()->validate($token, ...$this->constraints);
     }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @return void
+     */
+    public function logout(): void
+    {
+        $bearer = $this->request->bearerToken();
+        $token = $this->configuration->parser()->parse($bearer);
+        Token::updateOrCreate(
+            [
+                'user_uuid' => auth()->id(),
+                'unique_id' => $token->claims()->get('jti'),
+                'token_title' => $this->request->userAgent(),
+            ],
+            [
+                'restrictions' => true,
+            ]
+        );
+    }
 }

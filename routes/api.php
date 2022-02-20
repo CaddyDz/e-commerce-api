@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\AdminController;
 Route::prefix('admin')->group(function () {
 	Route::middleware('auth')->group(function () {
 		Route::post('create', [AdminController::class, 'create']);
+		Route::get('logout', [AdminController::class, 'logout']);
 	});
 	Route::post('login', [AdminController::class, 'login'])->middleware('guest');
 });
