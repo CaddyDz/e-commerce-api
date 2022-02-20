@@ -3,13 +3,44 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\CreateAdminRequest;
 use Illuminate\Auth\AuthenticationException;
 use App\Http\Requests\Admin\AdminLoginRequest;
 
 class AdminController extends Controller
 {
+    /**
+     * Create
+     *
+     * Insert a new admin user record to database
+     *
+     * @param \App\Http\Requests\CreateAdminRequest $request
+     *
+     * @return \Illuminate\Http\Response
+     **/
+    public function create(CreateAdminRequest $request)
+    {
+        User::create([
+            'uuid' => Str::uuid()->toString(),
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'avatar' => $request->avatar,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'is_admin' => 1,
+            'is_marketing' => $request->marketing,
+        ]);
+
+        return response([
+            'status' => 'success',
+        ]);
+    }
+
     /**
      * Login
      *
