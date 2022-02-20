@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\Auth\JwtGuard;
+use Lcobucci\JWT\Configuration;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,12 +21,22 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register any authentication / authorization services.
      *
+     * @param \Lcobucci\JWT\Configuration $configuration
+     *
      * @return void
      */
-    public function boot()
+    public function boot(Configuration $configuration)
     {
         $this->registerPolicies();
 
-        //
+        Auth::extend(
+            'jwt',
+            fn ($app, $name, array $config) =>
+            new JwtGuard(
+                Auth::createUserProvider($config['provider']),
+                $app['request'],
+                $configuration
+            )
+        );
     }
 }
