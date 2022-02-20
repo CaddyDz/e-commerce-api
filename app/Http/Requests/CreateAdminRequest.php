@@ -26,11 +26,12 @@ class CreateAdminRequest extends FormRequest
         return [
             'first_name' => 'bail|required|string|min:3|max:50',
             'last_name' => 'bail|required|string|min:3|max:50',
-            'email' => 'bail|required|email:rfc,dns',
+            'email' => 'bail|required|email:rfc,dns|unique:users,email',
             'password' => 'bail|required|string|confirmed',
-            'avatar' => 'bail|required',
-            'address' => 'bail|required',
+            'avatar' => 'bail|required|string|uuid',
+            'address' => 'bail|required|string|min:5|max:50',
             'phone_number' => 'bail|required',
+            'marketing' => 'bail|sometimes|boolean',
         ];
     }
 }
