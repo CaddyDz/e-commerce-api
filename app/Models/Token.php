@@ -19,7 +19,7 @@ class Token extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
+        'user_uuid',
         'unique_id',
         'token_title',
         'restrictions',

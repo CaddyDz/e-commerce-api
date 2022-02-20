@@ -37,7 +37,7 @@ trait HasToken
 			->getToken($configuration->signer(), $configuration->signingKey());
 
 		Token::create([
-			'user_id' => $this->id,
+			'user_uuid' => $this->id,
 			'unique_id' => $unique_id,
 			// Probably the user agent
 			'token_title' => substr(request()->userAgent(), 0, 255),
