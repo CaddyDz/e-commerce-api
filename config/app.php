@@ -174,6 +174,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\JwtServiceProvider::class,
+        App\Providers\ResponseServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
     ],
